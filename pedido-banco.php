@@ -1,12 +1,20 @@
-<?php	
+<?php
+
 	include("conecta.php");
-	
-	function listaPedidos($conexao){
-		$resultado = mysqli_query($conexao, "SELECT p.*, c.nome AS categoria_nome FROM produtos AS p JOIN categorias AS c ON c.id = p.categoria_id");
-		$produtos = array();
-		
-		while ($produto = mysqli_fetch_assoc($resultado)) {
-	    	array_push($produtos, $produto);
-		}
-		return $produtos;
+
+	function criaPedido($conexao, $totalPedido, $dataCriacao){
+         $query = "INSERT INTO Pedido (total, dataCriacao) VALUES({$totalPedido}, '{$dataCriacao}')";
+         return mysqli_query($conexao, $query);
+	}
+
+	function buscaUltimoPedido($conexao){
+		$query = "SELECT * FROM Pedido WHERE idPedido = (SELECT MAX(idPedido) FROM Pedido);";
+		$resultado = mysqli_query($conexao, $query);
+		return mysqli_fetch_assoc($resultado);
+	}
+
+	function buscaPedido($conexao, $idPedido){
+		$query = "SELECT * FROM Pedido WHERE idPedido = {$idPedido}";
+		$resultado = mysqli_query($conexao, $query);
+		return mysqli_fetch_assoc($resultado);
 	}

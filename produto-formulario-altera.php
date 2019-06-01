@@ -9,7 +9,7 @@
  ?>
 	<h1>Fomulário altera Produto</h1>
 	<form action="produto-altera.php" method="post">
-		<input type="hidden" name="id" value="<?=$produto['id']?>">
+		<input type="hidden" name="id" value="<?=$produto['idProduto']?>">
 		<table class="table">
 
 			<?php include("produto-formulario-base.php") ?>
